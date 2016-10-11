@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<svg width="960" height="500"></svg>
+<svg width="500" height="500"></svg>
 <script src="//d3js.org/d3.v4.min.js"></script>
 <script>
 
@@ -18,9 +18,9 @@ var x = d3.scaleTime().range([0, width]),
 var stack = d3.stack();
 
 var area = d3.area()
-  .x(function(d, i) { return x(d.data.date);  })
-  .y0(function(d) { return y(d[0]);  })
-  .y1(function(d) { return y(d[1]);  });
+  .y(function(d, i) { return x(d.data.date);  })
+  .x0(function(d) { return y(d[0]);  })
+  .x1(function(d) { return y(d[1]);  });
 
   var g = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -46,23 +46,25 @@ var area = d3.area()
 
     layer.filter(function(d) { return d[d.length - 1][1] - d[d.length - 1][0] > 0.01;  })
       .append("text")
-      .attr("x", width - 6)
-      .attr("y", function(d) { return y((d[d.length - 1][0] + d[d.length - 1][1]) / 2);  })
-      .attr("dy", ".35em")
+      .attr("y", width - 6)
+      .attr("x", function(d) { return y((d[d.length - 1][0] + d[d.length - 1][1]) / 2);  })
+      .attr("dx", ".55em")
       .style("font", "10px sans-serif")
       .style("text-anchor", "end")
-      .text(function(d) { return d.key;  });
+      .text(function(d) { return d.key;  })
 
     g.append("g")
       .attr("class", "axis axis--x")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(y).ticks(10, "%"));
 
     g.append("g")
       .attr("class", "axis axis--y")
-      .call(d3.axisLeft(y).ticks(10, "%"));
+      .call(d3.axisLeft(x));
 
   });
+
+  svg.transform("r90");
 
 function type(d, i, columns) {
   d.date = parseDate(d.date);
