@@ -11,8 +11,8 @@ var svg = d3.select("svg"),
 
 var parseDate = d3.timeParse("%Y %b %d");
 
-var x = d3.scaleTime().range([0, width]),
-    y = d3.scaleLinear().range([height, 0]),
+var x = d3.scaleTime().range([0, height]),
+    y = d3.scaleLinear().range([width, 0]),
     z = d3.scaleOrdinal(d3.schemeCategory10);
 
 var stack = d3.stack();
@@ -44,15 +44,6 @@ var area = d3.area()
       .style("fill", function(d) { return z(d.key);  })
       .attr("d", area);
 
-    layer.filter(function(d) { return d[d.length - 1][1] - d[d.length - 1][0] > 0.01;  })
-      .append("text")
-      .attr("y", width - 6)
-      .attr("x", function(d) { return y((d[d.length - 1][0] + d[d.length - 1][1]) / 2);  })
-      .attr("dx", ".55em")
-      .style("font", "10px sans-serif")
-      .style("text-anchor", "end")
-      .text(function(d) { return d.key;  })
-
     g.append("g")
       .attr("class", "axis axis--x")
       .attr("transform", "translate(0," + height + ")")
@@ -62,9 +53,31 @@ var area = d3.area()
       .attr("class", "axis axis--y")
       .call(d3.axisLeft(x));
 
+    var legend = g.selectAll(".legend")
+      .data(data.columns.slice(1).reverse())
+      .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; })
+        .attr("fill", "white")
+        .style("font", "10px sans-serif");
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .attr("fill", z)
+      .style("stroke", "white")
+      .style("stroke-width", 3);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .attr("text-anchor", "end")
+      .text(function(d) { return d; });
+
   });
 
-  svg.transform("r90");
 
 function type(d, i, columns) {
   d.date = parseDate(d.date);
