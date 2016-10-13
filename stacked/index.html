@@ -51,7 +51,7 @@ var area = d3.area()
 
     g.append("g")
       .attr("class", "axis axis--y")
-      .call(d3.axisLeft(x));
+      .call(d3.axisLeft(x).ticks(50));
 
     var legend = g.selectAll(".legend")
       .data(data.columns.slice(1).reverse())
