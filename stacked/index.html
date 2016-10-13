@@ -25,10 +25,19 @@ var area = d3.area()
   var g = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  d3.tsv("data.tsv", type, function(error, data) {
+  d3.json("data.json", function(error, data) {
     if (error) throw error;
 
-    var keys = data.columns.slice(1);
+  var nest = d3.nest()
+     .key(function(d) { return d.key;})
+ //    .rollup(function(leaves) { return leaves.length;})
+     .entries(data)
+//    .sort(function(leaves){ return d3.descending(leaves.value); })   
+//    
+ //   console.log(JSON.stringify(data[0]));
+ //  console.log(JSON.stringify(data[0]));
+    console.log(JSON.stringify(nest));
+//    var keys = data.columns.slice(1);
 
     x.domain(d3.extent(data, function(d) { return d.date;  }));
     z.domain(keys);
