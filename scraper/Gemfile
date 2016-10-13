@@ -2,4 +2,5 @@
 # A sample Gemfile
 source "https://rubygems.org"
 
-gem "mechanize"
+gem "rspotify", "= 1.18.0"
+gem "string-similarity"
