@@ -11,33 +11,19 @@ var svg = d3.select("svg"),
     width = svg.attr("width") - margin.left - margin.right,
     height = svg.attr("height") - margin.top - margin.bottom;
 
-var parseDate = d3.timeParse("%Y %b %d");
+var parseDate = d3.timeParse("%Y");
 
 var x = d3.scaleTime().range([0, height]),
     y = d3.scaleLinear().range([width, 0]),
     z = d3.scaleOrdinal(d3.schemeCategory10);
 
 var stack = d3.stack();
-
-let formatInput = (year) => {
-    var yearNumber = Object.keys(year)[0];
-    var arr = [0,0,0,0,0,0,0,0,0,0,0,0,0];
-    arr[0]=yearNumber;
-    year[yearNumber].map( findKey => {
-            if(findKey!==null&&findKey["features"]!==null&&findKey["features"]["key"]!==null){
-                arr[
-                        findKey["features"]["key"]+1
-                    ]++;
-            }
-        }
-    )
-    return arr;
-}
+var keys;
 
 var area = d3.area()
-  .y(function(d, i) { return x(d.data.date);  })
-  .x0(function(d) { return y(d[0]);  })
-  .x1(function(d) { return y(d[1]);  });
+  .y((d, i) => { return x(d);  })
+  .x0((d) => { return y(d);  })
+  .x1((d) => { return y(d[1]);  });
 
   var g = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -45,22 +31,30 @@ var area = d3.area()
   d3.json("data.json", function(error, data) {
     if (error) throw error;
 
-  var nest = d3.nest()
-     .key(function(d) { return d.key;})
- //    .rollup(function(leaves) { return leaves.length;})
-     .entries(data)
+    let formatInput = (year) => {
+        var yearNumber = Object.keys(year)[0];
+        var arr = ({"date":0},{"0":false},{"1":false},{"2":false},{"3":false},{"4":false},{"5":false},{"6":false},{"7":false},{"8":false},{"9":false},{"10":false},{"11":false});
+        arr["date"]=new Date(yearNumber);
+        year[yearNumber].map( findKey => {
+                if(findKey!==null&&findKey["features"]!==null&&findKey["features"]["key"]!==null){
+                                // arr[0]=0;
+                                // console.log(arr[0]);
 
+                    arr[
+                            String(findKey["features"]["key"])
+                        ]++;
+                    }
+                }
+            )
+        return arr;
+    }
     //xing im sorry for your troubbles.
     arrayOfYears = data.map( (year) => {return formatInput(year);} );
+    data = arrayOfYears;
 
-//    .sort(function(leaves){ return d3.descending(leaves.value); })   
-//    
- //   console.log(JSON.stringify(data[0]));
- //  console.log(JSON.stringify(data[0]));
-    // console.log(JSON.stringify(nest));
-//    var keys = data.columns.slice(1);
 
-    x.domain(d3.extent(data, function(d) { return d.date;  }));
+    keys = ["0","1","2","3","3","4","5","6","7","8","9","10","11"];
+    x.domain(d3.extent(data, function(d) { return d[0];  }));
     z.domain(keys);
     stack.keys(keys);
 
@@ -71,7 +65,7 @@ var area = d3.area()
 
     layer.append("path")
       .attr("class", "area")
-      .style("fill", function(d) { return z(d.key);  })
+      .style("fill", function(d) { return z(d);  })
       .attr("d", area);
 
     g.append("g")
@@ -84,7 +78,7 @@ var area = d3.area()
       .call(d3.axisLeft(x));
 
     var legend = g.selectAll(".legend")
-      .data(data.columns.slice(1).reverse())
+      .data(keys.reverse())
       .enter().append("g")
         .attr("class", "legend")
         .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; })
@@ -110,10 +104,4 @@ var area = d3.area()
   });
 
 
-function type(d, i, columns) {
-  d.date = parseDate(d.date);
-  for (var i = 1, n = columns.length; i < n; ++i) d[columns[i]] = d[columns[i]] / 100;
-  return d;
-
-}
 </script>
