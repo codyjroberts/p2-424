@@ -9,11 +9,11 @@ var svg = d3.select("svg"),
     width = svg.attr("width") - margin.left - margin.right,
     height = svg.attr("height") - margin.top - margin.bottom;
 
-var parseDate = d3.timeParse("%Y %b %d");
+var parseDate = d3.timeParse("%b %d %Y");
 
 var x = d3.scaleTime().range([0, height]),
     y = d3.scaleLinear().range([width, 0]),
-    z = d3.scaleOrdinal(d3.schemeCategory10);
+    z = d3.scaleOrdinal(d3.schemeCategory20);
 
 var stack = d3.stack();
 
@@ -25,7 +25,7 @@ var area = d3.area()
   var g = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  d3.tsv("data.tsv", type, function(error, data) {
+  d3.tsv("data3.tsv", type, function(error, data) {
     if (error) throw error;
 
     var keys = data.columns.slice(1);
