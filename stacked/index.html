@@ -22,7 +22,7 @@ var stack = d3.stack();
 let formatInput = (year) => {
     var yearNumber = Object.keys(year)[0];
     var arr = [0,0,0,0,0,0,0,0,0,0,0,0,0];
-    arr[0]=yearNumber;
+    arr[0]=new Date(yearNumber);
     year[yearNumber].map( findKey => {
             if(findKey!==null&&findKey["features"]!==null&&findKey["features"]["key"]!==null){
                 arr[
