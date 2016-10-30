@@ -69,7 +69,7 @@ def find_track_id(artist, track)
   end
 end
 
-for year in 1983..1983 do
+for year in 2015..2015 do
   data = Array.new
   begin
     bill = RestClient.get("http://billboardtop100of.com/#{year}-2/")
@@ -94,7 +94,7 @@ for year in 1983..1983 do
   end
 
   bill_doc.css('table tbody td[3]').each do |a|
-    tracks.push(a.text.sub(/\nLYRICS/, '').strip)
+    tracks.push(a.text.strip.sub(/\nLYRICS/, ''))
   end
 
   events = wiki_doc.at_xpath("//div[@id='mw-content-text']/ul[1]").to_html
@@ -108,6 +108,8 @@ for year in 1983..1983 do
       "#{year}" => {
         genres: Hash.new(0).tap { |h| @yearly_genres.each { |word| h[word] += 1 } },
         events: events,
+        avg_tempo: @yearly_tempo.grep(Float).reduce(:+) / @yearly_tempo.size.to_f,
+        avg_valence: @yearly_valence.grep(Float).reduce(:+) / @yearly_valence.size.to_f,
         songs: yearly_data
       }
     })
