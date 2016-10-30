@@ -24,27 +24,13 @@ for year in 1956..2015
         [k, count.count]
       end
 
-      total = counts.reduce(0) do |t, i|
-        t + i[1]
-      end
-
-      counts = counts.map do |k, v|
-        if total > 0
-          perct = v / total.to_f
-          [k, perct]
-        else
-          [k, 0.0]
-        end
-      end
-
       c = {
-        "#{year}" => {
-          saddest: counts[0][1],
-          sad: counts[1][1],
-          neutral: counts[2][1],
-          happy: counts[3][1],
-          happiest: counts[4][1]
-        }
+        year: year,
+        saddest: counts[0][1],
+        sad: counts[1][1],
+        neutral: counts[2][1],
+        happy: counts[3][1],
+        happiest: counts[4][1]
       }
 
       data.push c
@@ -54,6 +40,6 @@ for year in 1956..2015
   end
 end
 
-File.open("../val.json","w") do |f|
-  f.puts JSON.pretty_generate(data.reduce({}, :merge))
+File.open("../brian.json","w") do |f|
+  f.puts JSON.pretty_generate(data)
 end
