@@ -4,7 +4,7 @@ require 'json'
 require 'rspotify'
 require 'string/similarity'
 
-RSpotify.authenticate("15499d6284c6489c9d0ae77d517d8d06", "8b0f2babe93a4a3b8f77ce02a97ddb75")
+RSpotify.authenticate(ENV["SPOTIFY_CLIENT"], ENV["SPOTIFY_SECRET"])
 
 class RSpotify::AudioFeatures
   def attributes

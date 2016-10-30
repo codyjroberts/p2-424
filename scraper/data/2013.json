@@ -4,15 +4,15 @@
       "pop": 49,
       "pop rap": 24,
       "vegas indie": 3,
-      "edm": 4,
+      "edm": 5,
       "electronic trap": 1,
       "moombahton": 1,
       "boy band": 3,
       "dance pop": 29,
-      "post-teen pop": 27,
-      "r&b": 13,
-      "rap": 7,
-      "urban contemporary": 9,
+      "post-teen pop": 25,
+      "r&b": 15,
+      "rap": 10,
+      "urban contemporary": 11,
       "pop christmas": 19,
       "pop rock": 14,
       "folk-pop": 10,
@@ -21,12 +21,13 @@
       "stomp and holler": 2,
       "metropopolis": 7,
       "big room": 2,
-      "electro house": 2,
+      "electro house": 3,
       "house": 3,
       "progressive house": 2,
       "tropical house": 2,
       "hollywood": 1,
-      "hip pop": 5,
+      "hip hop": 6,
+      "hip pop": 6,
       "alternative rock": 1,
       "indietronica": 2,
       "la indie": 1,
@@ -36,7 +37,6 @@
       "candy pop": 2,
       "swedish synthpop": 1,
       "canadian pop": 1,
-      "hip hop": 3,
       "emo": 2,
       "pop punk": 2,
       "neo mellow": 8,
@@ -49,7 +49,8 @@
       "modern country rock": 5,
       "indie christmas": 2,
       "piano rock": 1,
-      "southern hip hop": 3,
+      "southern hip hop": 4,
+      "chamber pop": 1,
       "icelandic pop": 1,
       "detroit hip hop": 1,
       "g funk": 1,
@@ -484,12 +485,15 @@
         "duration": 283400,
         "genres": [
           "dance pop",
+          "electro house",
+          "hip hop",
           "hip pop",
           "house",
           "pop",
           "pop rap",
           "post-teen pop",
           "r&b",
+          "rap",
           "urban contemporary"
         ],
         "popularity": 59,
@@ -562,7 +566,6 @@
           "dance pop",
           "pop",
           "pop christmas",
-          "post-teen pop",
           "r&b",
           "soul christmas",
           "urban contemporary"
@@ -1031,9 +1034,12 @@
         "duration": 211920,
         "genres": [
           "dance pop",
+          "hip pop",
           "pop",
           "pop rap",
-          "post-teen pop"
+          "post-teen pop",
+          "r&b",
+          "urban contemporary"
         ],
         "popularity": 68,
         "preview": "https://p.scdn.co/mp3-preview/d97043cf8c44a1d41f46fd6534726cf383f4f896"
@@ -1164,8 +1170,10 @@
         "duration": 223800,
         "genres": [
           "dance pop",
+          "edm",
           "pop",
           "pop rap",
+          "r&b",
           "rap",
           "southern hip hop"
         ],
@@ -1185,6 +1193,7 @@
         "energy": 0.786,
         "duration": 266600,
         "genres": [
+          "chamber pop",
           "folk-pop",
           "icelandic pop",
           "indie folk",
@@ -1262,7 +1271,8 @@
           "pop rock",
           "post-teen pop",
           "r&b",
-          "talent show"
+          "talent show",
+          "urban contemporary"
         ],
         "popularity": 50,
         "preview": "https://p.scdn.co/mp3-preview/4933260601d9963e3e978afd10486889dff8a690"
@@ -1304,7 +1314,6 @@
           "dance pop",
           "pop",
           "pop christmas",
-          "post-teen pop",
           "r&b",
           "soul christmas",
           "urban contemporary"
@@ -1510,6 +1519,7 @@
         "duration": 234040,
         "genres": [
           "dance pop",
+          "hip hop",
           "hip pop",
           "indie r&b",
           "neo soul",
@@ -1517,6 +1527,7 @@
           "pop rap",
           "post-teen pop",
           "r&b",
+          "rap",
           "southern hip hop",
           "urban contemporary"
         ],
@@ -1566,11 +1577,14 @@
         "duration": 251627,
         "genres": [
           "dance pop",
+          "hip hop",
           "hip pop",
           "pop",
           "pop christmas",
           "pop rap",
           "r&b",
+          "rap",
+          "southern hip hop",
           "urban contemporary"
         ],
         "popularity": 56,
