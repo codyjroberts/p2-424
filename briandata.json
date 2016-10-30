@@ -1,0 +1,482 @@
+[
+  {
+    "year": 1956,
+    "saddest": 5,
+    "sad": 18,
+    "neutral": 16,
+    "happy": 23,
+    "happiest": 21
+  },
+  {
+    "year": 1957,
+    "saddest": 3,
+    "sad": 10,
+    "neutral": 19,
+    "happy": 25,
+    "happiest": 34
+  },
+  {
+    "year": 1958,
+    "saddest": 2,
+    "sad": 14,
+    "neutral": 11,
+    "happy": 17,
+    "happiest": 36
+  },
+  {
+    "year": 1959,
+    "saddest": 3,
+    "sad": 17,
+    "neutral": 11,
+    "happy": 24,
+    "happiest": 33
+  },
+  {
+    "year": 1960,
+    "saddest": 4,
+    "sad": 15,
+    "neutral": 20,
+    "happy": 11,
+    "happiest": 43
+  },
+  {
+    "year": 1961,
+    "saddest": 4,
+    "sad": 10,
+    "neutral": 11,
+    "happy": 24,
+    "happiest": 38
+  },
+  {
+    "year": 1962,
+    "saddest": 3,
+    "sad": 10,
+    "neutral": 17,
+    "happy": 32,
+    "happiest": 32
+  },
+  {
+    "year": 1963,
+    "saddest": 0,
+    "sad": 10,
+    "neutral": 19,
+    "happy": 21,
+    "happiest": 45
+  },
+  {
+    "year": 1964,
+    "saddest": 0,
+    "sad": 12,
+    "neutral": 18,
+    "happy": 23,
+    "happiest": 36
+  },
+  {
+    "year": 1965,
+    "saddest": 0,
+    "sad": 9,
+    "neutral": 24,
+    "happy": 28,
+    "happiest": 33
+  },
+  {
+    "year": 1966,
+    "saddest": 1,
+    "sad": 9,
+    "neutral": 20,
+    "happy": 32,
+    "happiest": 32
+  },
+  {
+    "year": 1967,
+    "saddest": 3,
+    "sad": 10,
+    "neutral": 17,
+    "happy": 32,
+    "happiest": 27
+  },
+  {
+    "year": 1968,
+    "saddest": 1,
+    "sad": 13,
+    "neutral": 27,
+    "happy": 27,
+    "happiest": 29
+  },
+  {
+    "year": 1969,
+    "saddest": 1,
+    "sad": 16,
+    "neutral": 19,
+    "happy": 34,
+    "happiest": 26
+  },
+  {
+    "year": 1970,
+    "saddest": 1,
+    "sad": 14,
+    "neutral": 13,
+    "happy": 32,
+    "happiest": 25
+  },
+  {
+    "year": 1971,
+    "saddest": 4,
+    "sad": 14,
+    "neutral": 14,
+    "happy": 18,
+    "happiest": 36
+  },
+  {
+    "year": 1972,
+    "saddest": 3,
+    "sad": 12,
+    "neutral": 25,
+    "happy": 18,
+    "happiest": 34
+  },
+  {
+    "year": 1973,
+    "saddest": 0,
+    "sad": 9,
+    "neutral": 23,
+    "happy": 21,
+    "happiest": 37
+  },
+  {
+    "year": 1974,
+    "saddest": 6,
+    "sad": 10,
+    "neutral": 15,
+    "happy": 30,
+    "happiest": 30
+  },
+  {
+    "year": 1975,
+    "saddest": 4,
+    "sad": 14,
+    "neutral": 13,
+    "happy": 31,
+    "happiest": 27
+  },
+  {
+    "year": 1976,
+    "saddest": 4,
+    "sad": 8,
+    "neutral": 20,
+    "happy": 20,
+    "happiest": 41
+  },
+  {
+    "year": 1977,
+    "saddest": 8,
+    "sad": 17,
+    "neutral": 16,
+    "happy": 26,
+    "happiest": 30
+  },
+  {
+    "year": 1978,
+    "saddest": 6,
+    "sad": 18,
+    "neutral": 23,
+    "happy": 16,
+    "happiest": 28
+  },
+  {
+    "year": 1979,
+    "saddest": 1,
+    "sad": 16,
+    "neutral": 11,
+    "happy": 24,
+    "happiest": 40
+  },
+  {
+    "year": 1980,
+    "saddest": 11,
+    "sad": 6,
+    "neutral": 15,
+    "happy": 26,
+    "happiest": 33
+  },
+  {
+    "year": 1981,
+    "saddest": 8,
+    "sad": 18,
+    "neutral": 12,
+    "happy": 22,
+    "happiest": 26
+  },
+  {
+    "year": 1982,
+    "saddest": 9,
+    "sad": 9,
+    "neutral": 15,
+    "happy": 19,
+    "happiest": 37
+  },
+  {
+    "year": 1983,
+    "saddest": 7,
+    "sad": 16,
+    "neutral": 12,
+    "happy": 30,
+    "happiest": 29
+  },
+  {
+    "year": 1984,
+    "saddest": 3,
+    "sad": 7,
+    "neutral": 11,
+    "happy": 32,
+    "happiest": 38
+  },
+  {
+    "year": 1985,
+    "saddest": 4,
+    "sad": 13,
+    "neutral": 16,
+    "happy": 21,
+    "happiest": 37
+  },
+  {
+    "year": 1986,
+    "saddest": 4,
+    "sad": 19,
+    "neutral": 16,
+    "happy": 24,
+    "happiest": 33
+  },
+  {
+    "year": 1987,
+    "saddest": 5,
+    "sad": 19,
+    "neutral": 13,
+    "happy": 20,
+    "happiest": 35
+  },
+  {
+    "year": 1988,
+    "saddest": 8,
+    "sad": 15,
+    "neutral": 12,
+    "happy": 22,
+    "happiest": 31
+  },
+  {
+    "year": 1989,
+    "saddest": 7,
+    "sad": 18,
+    "neutral": 18,
+    "happy": 18,
+    "happiest": 24
+  },
+  {
+    "year": 1990,
+    "saddest": 5,
+    "sad": 17,
+    "neutral": 17,
+    "happy": 22,
+    "happiest": 26
+  },
+  {
+    "year": 1991,
+    "saddest": 6,
+    "sad": 16,
+    "neutral": 18,
+    "happy": 24,
+    "happiest": 24
+  },
+  {
+    "year": 1992,
+    "saddest": 4,
+    "sad": 21,
+    "neutral": 17,
+    "happy": 32,
+    "happiest": 16
+  },
+  {
+    "year": 1993,
+    "saddest": 9,
+    "sad": 13,
+    "neutral": 29,
+    "happy": 26,
+    "happiest": 15
+  },
+  {
+    "year": 1994,
+    "saddest": 6,
+    "sad": 26,
+    "neutral": 24,
+    "happy": 23,
+    "happiest": 14
+  },
+  {
+    "year": 1995,
+    "saddest": 4,
+    "sad": 22,
+    "neutral": 28,
+    "happy": 22,
+    "happiest": 13
+  },
+  {
+    "year": 1996,
+    "saddest": 6,
+    "sad": 16,
+    "neutral": 14,
+    "happy": 24,
+    "happiest": 22
+  },
+  {
+    "year": 1997,
+    "saddest": 9,
+    "sad": 19,
+    "neutral": 16,
+    "happy": 23,
+    "happiest": 18
+  },
+  {
+    "year": 1998,
+    "saddest": 8,
+    "sad": 18,
+    "neutral": 18,
+    "happy": 24,
+    "happiest": 13
+  },
+  {
+    "year": 1999,
+    "saddest": 6,
+    "sad": 20,
+    "neutral": 24,
+    "happy": 19,
+    "happiest": 13
+  },
+  {
+    "year": 2000,
+    "saddest": 2,
+    "sad": 17,
+    "neutral": 16,
+    "happy": 34,
+    "happiest": 13
+  },
+  {
+    "year": 2001,
+    "saddest": 4,
+    "sad": 19,
+    "neutral": 11,
+    "happy": 32,
+    "happiest": 11
+  },
+  {
+    "year": 2002,
+    "saddest": 7,
+    "sad": 12,
+    "neutral": 18,
+    "happy": 14,
+    "happiest": 24
+  },
+  {
+    "year": 2003,
+    "saddest": 4,
+    "sad": 12,
+    "neutral": 21,
+    "happy": 20,
+    "happiest": 15
+  },
+  {
+    "year": 2004,
+    "saddest": 5,
+    "sad": 11,
+    "neutral": 20,
+    "happy": 26,
+    "happiest": 12
+  },
+  {
+    "year": 2005,
+    "saddest": 9,
+    "sad": 15,
+    "neutral": 28,
+    "happy": 16,
+    "happiest": 12
+  },
+  {
+    "year": 2006,
+    "saddest": 4,
+    "sad": 17,
+    "neutral": 27,
+    "happy": 21,
+    "happiest": 6
+  },
+  {
+    "year": 2007,
+    "saddest": 4,
+    "sad": 18,
+    "neutral": 16,
+    "happy": 20,
+    "happiest": 12
+  },
+  {
+    "year": 2008,
+    "saddest": 7,
+    "sad": 17,
+    "neutral": 26,
+    "happy": 17,
+    "happiest": 7
+  },
+  {
+    "year": 2009,
+    "saddest": 9,
+    "sad": 16,
+    "neutral": 23,
+    "happy": 21,
+    "happiest": 12
+  },
+  {
+    "year": 2010,
+    "saddest": 5,
+    "sad": 18,
+    "neutral": 13,
+    "happy": 27,
+    "happiest": 12
+  },
+  {
+    "year": 2011,
+    "saddest": 4,
+    "sad": 19,
+    "neutral": 16,
+    "happy": 24,
+    "happiest": 9
+  },
+  {
+    "year": 2012,
+    "saddest": 4,
+    "sad": 20,
+    "neutral": 26,
+    "happy": 27,
+    "happiest": 9
+  },
+  {
+    "year": 2013,
+    "saddest": 2,
+    "sad": 23,
+    "neutral": 26,
+    "happy": 17,
+    "happiest": 10
+  },
+  {
+    "year": 2014,
+    "saddest": 10,
+    "sad": 14,
+    "neutral": 18,
+    "happy": 17,
+    "happiest": 12
+  },
+  {
+    "year": 2015,
+    "saddest": 12,
+    "sad": 18,
+    "neutral": 23,
+    "happy": 8,
+    "happiest": 12
+  }
+]
