@@ -1,0 +1,6 @@
+[
+{"name":"AgglomerativeCluster","songs":[]},
+{"name":"CommunityStructure","songs":["AgglomerativeCluster"]},
+{"name":"test","songs":["AgglomerativeCluster"]},
+{"name":"The bestest song", "songs":["test"]}
+]
