@@ -4,10 +4,6 @@ data = Array.new
 
 for year in 1950..2015
   begin
-<<<<<<< HEAD
-    File.open("#{year}.json", "r") do |f|
-      data.push JSON.parse(File.read(f))
-=======
     File.open("./data/#{year}.json", "r") do |f|
       d = JSON.parse File.read(f)
       songs = d["#{year}"]["songs"]
@@ -52,7 +48,6 @@ for year in 1950..2015
       }
 
       data.push c
->>>>>>> 6549caf... Organize files & update data
     end
   rescue
     nil
