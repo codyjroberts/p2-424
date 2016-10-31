@@ -490,40 +490,40 @@ function updateHisto(start, end) {
 
   if (width*hstW/histo.hstTot >= 35) {
     hstText.attr("x", width*hstBuf/histo.hstTot + 3);
-  } else if (width - width*hstBuf/histo.hstTot < 35) {
-    hstText.attr("x", width - 35 - (width - width*hstBuf/histo.hstTot));
+  } else if (width - width*hstBuf/histo.hstTot - width*hstW/histo.hstTot < 35) {
+    hstText.attr("x", width*hstBuf/histo.hstTot - 35);
   } else {
     hstText.attr("x", width*hstBuf/histo.hstTot + width*hstW/histo.hstTot + 3);
   }
 
   if (width*hpyW/histo.hpyTot >= 35) {
     hpyText.attr("x", width*hpyBuf/histo.hpyTot + 3);
-  } else if (width - width*hpyBuf/histo.hpyTot < 35) {
-    hpyText.attr("x", width - 35 - (width - width*hpyBuf/histo.hpyTot));
+  } else if (width - width*hpyBuf/histo.hpyTot - width*hpyW/histo.hpyTo< 35) {
+    hpyText.attr("x", width*hpyBuf/histo.hpyTot - 35);
   } else {
     hpyText.attr("x", width*hpyBuf/histo.hpyTot + width*hpyW/histo.hpyTot + 3);
   }
 
   if (width*neuW/histo.neuTot >= 35) {
     neuText.attr("x", width*neuBuf/histo.neuTot + 3);
-  } else if (width - width*neuBuf/histo.neuTot < 35) {
-    neuText.attr("x", width - 35 - (width - width*neuBuf/histo.neuTot));
+  } else if (width - width*neuBuf/histo.neuTot - width*neuW/histo.neuTot < 35) {
+    neuText.attr("x",  width*neuBuf/histo.neuTot - 35);
   } else {
     neuText.attr("x", width*neuBuf/histo.neuTot + width*neuW/histo.neuTot + 3);
   }
 
   if (width*sadW/histo.sadTot >= 35) {
     sadText.attr("x", width*sadBuf/histo.sadTot + 3);
-  } else if (width - width*sadBuf/histo.sadTot < 35) {
-    sadText.attr("x", width - 35 - (width - width*sadBuf/histo.sadTot));
+  } else if (width - width*sadBuf/histo.sadTot - width*sadW/histo.sadTot < 35) {
+    sadText.attr("x", width*sadBuf/histo.sadTot - 35);
   } else {
     sadText.attr("x", width*sadBuf/histo.sadTot + width*sadW/histo.sadTot + 3);
   }
 
   if (width*sstW/histo.sstTot >= 35) {
     sstText.attr("x", width*sstBuf/histo.sstTot + 3);
-  } else if (width - width*sstBuf/histo.sstTot < 35) {
-    sstText.attr("x", width - 35 - (width - width*sstBuf/histo.sstTot));
+  } else if (width - width*sstBuf/histo.sstTot - width*sstW/histo.sstTot < 35) {
+    sstText.attr("x", width*sstBuf/histo.sstTot - 35);
   } else {
     sstText.attr("x", width*sstBuf/histo.sstTot + width*sstW/histo.sstTot + 3);
   }
