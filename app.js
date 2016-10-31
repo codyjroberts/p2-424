@@ -225,6 +225,32 @@ function drawNeck(data) {
       d3.selectAll(".histoText").style("opacity", 0);
     }
   }
+
+  let legend = d3.select("#legend");
+
+  legend
+    .selectAll('rect')
+    .data(scaleZ.range())
+    .enter()
+    .append('rect')
+    .attr('width', 68)
+    .attr('x', (d,i) => {
+      return i * 68;
+    })
+    .attr('height', 30)
+    .style('fill', (d) => {
+      return d;
+    });
+
+  legend.selectAll('text')
+    .data([0, 0.2, 0.4, 0.6, 0.8])
+    .enter()
+    .append('text')
+    .attr('x', (d,i) => { return i*68; })
+    .attr('y', 55)
+    .attr("transform", "translate(5, -35)")
+    .text(d => { return d; })
+  ;
 }
 
 let histo = {
@@ -530,80 +556,78 @@ function updateHisto(start, end) {
 }
 
 let diameter = 960,
-    radius = diameter / 2,
-    innerRadius = radius - 120;
+  radius = diameter / 2,
+  innerRadius = radius - 120;
 
 let svg = d3.select("body").append("svg")
-    .attr("width", diameter)
-    .attr("height", diameter)
-    .append("g")
-    .attr("transform", "translate(" + radius + "," + radius + ")");
+  .attr("width", diameter)
+  .attr("height", diameter)
+  .append("g")
+  .attr("transform", "translate(" + radius + "," + radius + ")");
 
 let cluster = d3.cluster()
-    .size([360, innerRadius])
+  .size([360, innerRadius])
 
 let line = d3.radialLine()
-    .curve(d3.curveBundle.beta(0.95))
-    .radius(d => { return d.y; })
-    .angle(d => { return d.x / 180 * Math.PI; });
+  .curve(d3.curveBundle.beta(0.95))
+  .radius(d => { return d.y; })
+  .angle(d => { return d.x / 180 * Math.PI; });
 
 let link = svg.append("g").selectAll(".link"),
-    node = svg.append("g").selectAll(".node");
+  node = svg.append("g").selectAll(".node");
 
 function update(file) {
-    d3.json(file, (error, classes) => {
-      if (error) throw error;
-      // remove previous data
-      
-      d3.selectAll(".node").remove();
-      d3.selectAll(".link").remove();
-      
-      // package data into hierarchy format
-      
-      let hierarchy = d3.hierarchy(packageHierarchy(classes))
-      let nodes = cluster(hierarchy).descendants()
+  d3.json(file, (error, classes) => {
+    if (error) throw error;
+    // remove previous data
 
-      let links = packageSongs(nodes);
+    d3.selectAll(".node").remove();
+    d3.selectAll(".link").remove();
 
-      // Generate nodes with song names around radius
-      let node_selection = node.data(nodes.filter(n => { return !n.data.children; }));
-      node_selection    
-          .enter().append("text")
-          .attr("class", "node")
-          .attr("dy", ".34em")
-          .attr("transform", d => { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
-          .style("text-anchor", d => { return d.x < 180 ? "start" : "end"; })
-          .text(d => { return d.data.key; })
+    // package data into hierarchy format
 
-      // Create path connect the target and source nodes and color the path based on valence
-      let link_selection = link.data(links);
-      link_selection
-            .enter().append('path')
-            .attr('class', 'link')
-            .merge(link)
-            .attr('d', d => line(d.source.path(d.target)))
-            .attr("stroke-dasharray", function() {
-                let totalLength = this.getTotalLength();
-                return totalLength + " " + totalLength;
-            })
-            .attr("stroke-dashoffset", function() {
-                let totalLength = this.getTotalLength();
-                return totalLength;
-            })
-            .style("stroke", d => d3.interpolateLab("#00a9f8 ", "#ffeb3b ")(d.valence))
-            .style("stroke-width", 2)
-            .transition()
-                .duration(2000)
-                .attr("stroke-dashoffset", 0);
-      
-    });
-  
+    let hierarchy = d3.hierarchy(packageHierarchy(classes))
+    let nodes = cluster(hierarchy).descendants()
 
+    let links = packageSongs(nodes);
+
+    // Generate nodes with song names around radius
+    let node_selection = node.data(nodes.filter(n => { return !n.data.children; }));
+    node_selection    
+      .enter().append("text")
+      .attr("class", "node")
+      .attr("dy", ".34em")
+      .attr("transform", d => { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+      .style("text-anchor", d => { return d.x < 180 ? "start" : "end"; })
+      .text(d => { return d.data.key; })
+
+    // Create path connect the target and source nodes and color the path based on valence
+    let link_selection = link.data(links);
+    link_selection
+      .enter().append('path')
+      .attr('class', 'link')
+      .merge(link)
+      .attr('d', d => line(d.source.path(d.target)))
+      .attr("stroke-dasharray", function() {
+        let totalLength = this.getTotalLength();
+        return totalLength + " " + totalLength;
+      })
+      .attr("stroke-dashoffset", function() {
+        let totalLength = this.getTotalLength();
+        return totalLength;
+      })
+      .style("stroke", d => d3.interpolateLab("#00a9f8 ", "#ffeb3b ")(d.valence))
+      .style("stroke-width", 2)
+      .transition()
+      .duration(2000)
+      .attr("stroke-dashoffset", 0);
+
+  });
 }
 
 update("xing-test/test2.json");
 update("xing-test/readme-flare-imports.json");
-  
+
 // Lazily construct the package hierarchy from class names.
 function packageHierarchy(classes) {
   let map = {};
@@ -631,8 +655,8 @@ function packageHierarchy(classes) {
 // Return a list of songs for the given array of nodes.
 function packageSongs(nodes) {
   let map = {},
-      imports = [],
-      valence = {};
+    imports = [],
+    valence = {};
 
   // Compute a map from name to node.
   nodes.forEach(d => {

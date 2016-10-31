@@ -12,6 +12,9 @@
           background: rgba(0, 0, 0, 0);
       }
 
+      text {
+      }
+
       #player {
         text-align: center;
         width: 100%;
@@ -149,15 +152,18 @@
         display: inline;
       }
 
+      .mdl-list {
+        margin: 0;
+      }
+
       .demo-card-image.mdl-card {
         position: absolute;
         overflow: hidden;
         float: left;
         bottom: 15px;
         left: 15px; 
-        width: 15vw;
-        min-height: 100px;
-        min-width: 250px;
+        width: 350px;
+        min-width: 350px;
         font-family: 'Acme', sans-serif;
         background-color: #FDF3E7;
         background: rgba(0, 0, 0, 0.2);
@@ -165,12 +171,21 @@
 
       .items {
         font-family: 'Acme', sans-serif;
+        padding-top: 0;
+        padding-bottom: 0;
       }
 
       .demo-card-image > .mdl-card__actions {
         height: 2em;
         padding: 8px;
         background: rgba(0, 0, 0, 0.2);
+      }
+
+      #legend {
+        height: 30px;
+        width: 100%;
+        font-size: 0.8em;
+        padding: 5px;
       }
     </style>
   </head>
@@ -191,6 +206,9 @@
           <audio src="" controls="controls"></audio>
         </div>
       </div>
+    <div class="mdl-card__actions">
+      <span class="demo-card-image__filename">Player</span>
+    </div>
     <ul class="demo-list-control mdl-list">
       <li class="mdl-list__item items">
         <span class="mdl-list__item-primary-content">
@@ -205,6 +223,10 @@
     </ul>
     <div class="mdl-card__actions">
       <span class="demo-card-image__filename">Options</span>
+    </div>
+    <svg id="legend"></svg>
+    <div class="mdl-card__actions">
+      <span class="demo-card-image__filename">Legend</span>
     </div>
   </div>
 
