@@ -498,7 +498,7 @@ function updateHisto(start, end) {
 
   if (width*hpyW/histo.hpyTot >= 35) {
     hpyText.attr("x", width*hpyBuf/histo.hpyTot + 3);
-  } else if (width - width*hpyBuf/histo.hpyTot - width*hpyW/histo.hpyTo< 35) {
+  } else if (width - width*hpyBuf/histo.hpyTot - width*hpyW/histo.hpyTot < 35) {
     hpyText.attr("x", width*hpyBuf/histo.hpyTot - 35);
   } else {
     hpyText.attr("x", width*hpyBuf/histo.hpyTot + width*hpyW/histo.hpyTot + 3);
