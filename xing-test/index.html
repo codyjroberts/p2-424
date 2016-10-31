@@ -12,8 +12,8 @@
 }
 
 .link {
-  stroke: steelblue;
-  stroke-opacity: .4;
+  stroke: none;
+  stroke-opacity: 1;
   fill: none;
   pointer-events: none;
 }
@@ -24,27 +24,6 @@
   font-weight: 700;
 }
 
-.node--source {
-  fill: #2ca02c;
-}
-
-.node--target {
-  fill: #d62728;
-}
-
-.link--source,
-.link--target {
-  stroke-opacity: 1;
-  stroke-width: 2px;
-}
-
-.link--source {
-  stroke: #d62728;
-}
-
-.link--target {
-  stroke: #2ca02c;
-}
 
 </style>
 <body>
@@ -73,42 +52,60 @@ var line = d3.radialLine()
 var link = svg.append("g").selectAll(".link"),
     node = svg.append("g").selectAll(".node");
 
-d3.json("readme-flare-imports.json", function(error, classes) {
-  if (error) throw error;
-  var hierarchy = d3.hierarchy(packageHierarchy(classes))
-  var nodes = cluster(hierarchy).descendants()
+function update(file) {
+    d3.json(file, function(error, classes) {
+      if (error) throw error;
+      // remove previous data
+      
+      d3.selectAll(".node").remove();
+      d3.selectAll(".link").remove();
+      
+      // package data into hierarchy format
+      
+      var hierarchy = d3.hierarchy(packageHierarchy(classes))
+      var nodes = cluster(hierarchy).descendants()
 
-  var links = packageSongs(nodes);
+      var links = packageSongs(nodes);
 
-  node = node
-      .data(nodes.filter(function(n) { return !n.data.children; }))
-      .enter().append("text")
-      .attr("class", "node")
-      .attr("dy", ".34em")
-      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
-      .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-      .text(function(d) { return d.data.key; })
+      // Generate nodes with song names around radius
+      var node_selection = node.data(nodes.filter(function(n) { return !n.data.children; }));
+      node_selection    
+          .enter().append("text")
+          .attr("class", "node")
+          .attr("dy", ".34em")
+          .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+          .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+          .text(function(d) { return d.data.key; })
 
-  link = link.data(links);
-  var path = link.enter().append('path')
-        .attr('class', 'link')
-        .merge(link)
-        .attr('d', d => line(d.source.path(d.target)))
-        .attr("stroke-dasharray", function() {
-            var totalLength = this.getTotalLength();
-            return totalLength + " " + totalLength;
-        })
-       .attr("stroke-dashoffset", function() {
-            var totalLength = this.getTotalLength();
-            return totalLength;
-        })
-       .style("stroke", d => d3.interpolateLab("#00a9f8 ", "#ffeb3b ")(d.valence))
-        .transition()
-            .duration(2000)
-            .attr("stroke-dashoffset", 0);
-});
+      // Create path connect the target and source nodes and color the path based on valence
+      var link_selection = link.data(links);
+      link_selection
+            .enter().append('path')
+            .attr('class', 'link')
+            .merge(link)
+            .attr('d', d => line(d.source.path(d.target)))
+            .attr("stroke-dasharray", function() {
+                var totalLength = this.getTotalLength();
+                return totalLength + " " + totalLength;
+            })
+            .attr("stroke-dashoffset", function() {
+                var totalLength = this.getTotalLength();
+                return totalLength;
+            })
+            .style("stroke", d => d3.interpolateLab("#00a9f8 ", "#ffeb3b ")(d.valence))
+            .style("stroke-width", 2)
+            .transition()
+                .duration(2000)
+                .attr("stroke-dashoffset", 0);
+      
+    });
+  
 
+}
 
+update("test2.json");
+update("readme-flare-imports.json");
+  
 // Lazily construct the package hierarchy from class names.
 function packageHierarchy(classes) {
   var map = {};
