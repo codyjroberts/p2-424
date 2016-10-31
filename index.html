@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
     <style>
+      audio::-webkit-media-controls-panel {
+          background: rgba(0, 0, 0, 0);
+      }
+
+      #player {
+        text-align: center;
+        width: 100%;
+        padding-top: 10px;
+      }
+
       .node {
         font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
         fill: #bbb;
@@ -145,9 +155,9 @@
         float: left;
         bottom: 15px;
         left: 15px; 
-        width: 10vw;
+        width: 15vw;
         min-height: 100px;
-        min-width: 150px;
+        min-width: 250px;
         font-family: 'Acme', sans-serif;
         background-color: #FDF3E7;
         background: rgba(0, 0, 0, 0.2);
@@ -173,6 +183,14 @@
   </header>
 
   <div class="demo-card-image mdl-card mdl-shadow--2dp">
+      <div id="player">
+        <div id="track-info">
+          <span id="artist">Artist</span> - <span id="track">Track</span>
+        </div> 
+        <div>
+          <audio src="" controls="controls"></audio>
+        </div>
+      </div>
     <ul class="demo-list-control mdl-list">
       <li class="mdl-list__item items">
         <span class="mdl-list__item-primary-content">
@@ -187,7 +205,6 @@
     </ul>
     <div class="mdl-card__actions">
       <span class="demo-card-image__filename">Options</span>
-    </div>
     </div>
   </div>
 
