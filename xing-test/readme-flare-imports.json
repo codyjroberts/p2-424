@@ -1,0 +1,7 @@
+[
+{"name":"AgglomerativeCluster","songs":["CommunityStructure"], "valence":0.1},
+{"name":"CommunityStructure","songs":["AgglomerativeCluster"], "valence":0.1},
+{"name":"test","songs":["The bestest song", "The bomb song"], "valence":1},
+{"name":"The bestest song", "songs":["test", "The bomb song"], "valence":1},
+{"name":"The bomb song", "songs":["test", "The bestest song"], "valence":1}
+]
