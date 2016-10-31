@@ -4,11 +4,13 @@ d3.json('./val.json', (error, data) => {
   drawNeck(data);
 });
 
-d3.json("./briandata.json", function(error, data) {
+d3.json("./valtotals.json", (error, data) => {
   if (error) throw error;
 
   drawHisto(data);
 });
+
+const valColor   = function (i) { return d3.interpolateLab("#00a9f8", "#ffeb3b")(i); };
 
 function drawNeck(data) {
   const svg = d3.select("#stacked");
@@ -19,7 +21,6 @@ function drawNeck(data) {
   const margin   = {top: 20, right: 45, bottom: 35, left: 35},
     width      = svg.attr("width") - margin.left - margin.right,
     height     = svg.attr("height") - margin.top - margin.bottom,
-    valColor   = function (i) { return d3.interpolateLab("#00a9f8", "#ffeb3b")(i); },
     formatYear = d3.timeFormat("%Y"),
     parseTime  = d3.timeParse("%Y"),
     years      = Object.keys(data),
@@ -280,7 +281,7 @@ function drawHisto(data) {
     .attr("height",height*.2)
     .attr("stroke","white")
     .attr("stroke-width",3)
-    .attr("fill","#F3E141")
+    .attr("fill", valColor(1))
     .style("opacity",0.5);
 
   let happyBack = svg.append("rect")
@@ -291,7 +292,7 @@ function drawHisto(data) {
     .attr("height",height*.2)
     .attr("stroke","white")
     .attr("stroke-width",3)
-    .attr("fill","#DED46F")
+    .attr("fill", valColor(0.8))
     .style("opacity",0.5);
 
   let neutralBack = svg.append("rect")
@@ -302,7 +303,7 @@ function drawHisto(data) {
     .attr("height",height*.2)
     .attr("stroke","white")
     .attr("stroke-width",3)
-    .attr("fill","#C6C792")
+    .attr("fill", valColor(0.6))
     .style("opacity",0.5);
 
   let sadBack = svg.append("rect")
@@ -313,7 +314,7 @@ function drawHisto(data) {
     .attr("height",height*.2)
     .attr("stroke","white")
     .attr("stroke-width",3)
-    .attr("fill","#A8BBB2")
+    .attr("fill", valColor(0.4))
     .style("opacity",0.5);
 
   let saddestBack = svg.append("rect")
@@ -324,7 +325,7 @@ function drawHisto(data) {
     .attr("height",height*.2)
     .attr("stroke","white")
     .attr("stroke-width",3)
-    .attr("fill","#7FB0D0")
+    .attr("fill", valColor(0.2))
     .style("opacity",0.5);
 
   let happiestFront = svg.append("rect")
@@ -335,7 +336,7 @@ function drawHisto(data) {
     .attr("height",height*.2)
     .attr("stroke","white")
     .attr("stroke-width",3)
-    .attr("fill","#F3E141")
+    .attr("fill", valColor(1));
 
   let happyFront = svg.append("rect")
     .attr("id", "happyFront")
@@ -345,7 +346,7 @@ function drawHisto(data) {
     .attr("height",height*.2)
     .attr("stroke","white")
     .attr("stroke-width",3)
-    .attr("fill","#DED46F")
+    .attr("fill", valColor(0.8));
 
   let neutralFront = svg.append("rect")
     .attr("id", "neutralFront")
@@ -355,7 +356,7 @@ function drawHisto(data) {
     .attr("height",height*.2)
     .attr("stroke","white")
     .attr("stroke-width",3)
-    .attr("fill","#C6C792")
+    .attr("fill", valColor(0.6));
 
   let sadFront = svg.append("rect")
     .attr("id", "sadFront")
@@ -365,7 +366,7 @@ function drawHisto(data) {
     .attr("height",height*.2)
     .attr("stroke","white")
     .attr("stroke-width",3)
-    .attr("fill","#A8BBB2")
+    .attr("fill", valColor(0.4));
 
   let saddestFront = svg.append("rect")
     .attr("id", "saddestFront")
@@ -375,37 +376,37 @@ function drawHisto(data) {
     .attr("height",height*.2)
     .attr("stroke","white")
     .attr("stroke-width",3)
-    .attr("fill","#7FB0D0")
+    .attr("fill", valColor(0.2));
 
   let hstText = svg.append("text")
     .attr("id", "hstText")
     .attr("class", "histoText")
     .attr("x",3)
-    .attr("y",height*.12)
+    .attr("y",height*.12);
 
   let hpyText = svg.append("text")
     .attr("id", "hpyText")
     .attr("class", "histoText")
     .attr("x",3)
-    .attr("y",height*.32)
+    .attr("y",height*.32);
 
   let neuText = svg.append("text")
     .attr("id", "neuText")
     .attr("class", "histoText")
     .attr("x",3)
-    .attr("y",height*.52)
+    .attr("y",height*.52);
 
   let sadText = svg.append("text")
     .attr("id", "sadText")
     .attr("class", "histoText")
     .attr("x",3)
-    .attr("y",height*.72)
+    .attr("y",height*.72);
 
   let sstText = svg.append("text")
     .attr("id", "sstText")
     .attr("class", "histoText")
     .attr("x",3)
-    .attr("y",height*.92)
+    .attr("y",height*.92);
 
   updateHisto(1956, 2015);
 }
@@ -443,36 +444,43 @@ function updateHisto(start, end) {
     x += 1;
   }
 
-  d3.select("#happiestFront").transition()
-    .duration(100)
+  d3.select("#happiestFront")
+    .transition()
+    .duration(250)
     .attr("x", width*hstBuf/histo.hstTot)
     .attr("width", width*hstW/histo.hstTot);
 
-  d3.select("#happyFront").transition()
-    .duration(100)
+  d3.select("#happyFront")
+    .transition()
+    .duration(250)
     .attr("x", width*hpyBuf/histo.hpyTot)
     .attr("width", width*hpyW/histo.hpyTot);
 
-  d3.select("#neutralFront").transition()
-    .duration(100)
+  d3.select("#neutralFront")
+    .transition()
+    .duration(250)
     .attr("x", width*neuBuf/histo.neuTot)
     .attr("width", width*neuW/histo.neuTot);
 
-  d3.select("#sadFront").transition()
-    .duration(100)
+  d3.select("#sadFront")
+    .transition()
+    .duration(250)
     .attr("x", width*sadBuf/histo.sadTot)
     .attr("width", width*sadW/histo.sadTot);
 
-  d3.select("#saddestFront").transition()
-    .duration(100)
+  d3.select("#saddestFront")
+    .transition()
+    .duration(250)
     .attr("x", width*sstBuf/histo.sstTot)
     .attr("width", width*sstW/histo.sstTot);
 
-  let hstText = d3.select("#hstText");
-  let hpyText = d3.select("#hpyText");
-  let neuText = d3.select("#neuText");
-  let sadText = d3.select("#sadText");
-  let sstText = d3.select("#sstText");
+  let trans = d3.transition().duration(250);
+
+  let hstText = d3.select("#hstText").transition(trans);
+  let hpyText = d3.select("#hpyText").transition(trans);
+  let neuText = d3.select("#neuText").transition(trans);
+  let sadText = d3.select("#sadText").transition(trans);
+  let sstText = d3.select("#sstText").transition(trans);
 
   hstText.text(((hstW/histo.hstTot*100).toFixed(0)).toString().concat("%"));
   hpyText.text(((hpyW/histo.hpyTot*100).toFixed(0)).toString().concat("%"));
