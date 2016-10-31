@@ -79,7 +79,17 @@
         }
       }
 
-      #neck {
+      #viz-histo {
+        display: absolute;
+        left: 15px;
+        bottom: 15px;
+        float: left;
+        overflow: hidden;
+        padding-left: 15px;
+        padding-top: 15px;
+      }
+
+      #viz-right {
         float: right;
         width: 100%;
         max-width: 500px;
@@ -159,8 +169,11 @@
     </div>
   </div>
 
-  <div id="neck">
-    <svg></svg>
+  <div id="viz-histo">
+    <svg id="histo"></svg>
+  </div>
+  <div id="viz-right">
+    <svg id="stacked"></svg>
   </div>
   <svg height="8" width="8" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="crosshatch" patternUnits="userSpaceOnUse" width="8" height="8"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4JyBoZWlnaHQ9JzgnPgogIDxyZWN0IHdpZHRoPSc4JyBoZWlnaHQ9JzgnIGZpbGw9JyNmZmYnLz4KICA8cGF0aCBkPSdNMCAwTDggOFpNOCAwTDAgOFonIHN0cm9rZS13aWR0aD0nMC41JyBzdHJva2U9JyNhYWEnLz4KPC9zdmc+Cg==" x="0" y="0" width="8" height="8"> </image> </pattern> </defs> </svg>
 </body>
