@@ -4,16 +4,12 @@
   <head>
     <meta charset="utf-8">
     <title>Billboard Valence</title>
-    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
     <style>
       audio::-webkit-media-controls-panel {
           background: rgba(0, 0, 0, 0);
-      }
-
-      text {
       }
 
       #player {
@@ -115,7 +111,7 @@
         }
       }
 
-      #viz-histo {
+      #viz-left {
         display: absolute;
         left: 15px;
         bottom: 15px;
@@ -125,11 +121,24 @@
         padding-top: 15px;
       }
 
+      #viz-middle {
+        position: absolute;
+        right: 30%; 
+          bottom: 5px;
+        float: middle;
+        overflow: hidden;
+
+        p {
+          position: relative;
+          width: 100%;
+        }
+      }
+
       #viz-right {
         float: right;
         width: 100%;
         max-width: 500px;
-        height: 90%;
+        height: 87%;
       }
 
       body {
@@ -204,7 +213,7 @@
           <span id="artist">Artist</span> - <span id="track">Track</span>
         </div> 
         <div>
-          <audio src="" controls="controls"></audio>
+          <audio id="audio-player" src="" controls="controls"></audio>
         </div>
       </div>
     <div class="mdl-card__actions">
@@ -231,8 +240,11 @@
     </div>
   </div>
 
-  <div id="viz-histo">
+  <div id="viz-left">
     <svg id="histo"></svg>
+  </div>
+  <div id="viz-middle">
+    
   </div>
   <div id="viz-right">
     <svg id="stacked"></svg>
