@@ -1,4 +1,4 @@
-d3.json('./val.json', (error, data) => {
+åd3.json('./val.json', (error, data) => {
   if (error) throw error;
 
   drawNeck(data);
@@ -8,14 +8,6 @@ d3.json("./valtotals.json", (error, data) => {
   if (error) throw error;
 
   drawHisto(data);
-});
-
-let bundlesData;
-
-d3.json("result.json", (error, data) => {
-  if (error) throw error;
-  bundlesData = data;
-  updateHierarchyEdge(bundlesData, 1956);
 });
 
 const valColor   = function (i) { return d3.interpolateLab("#00a9f8", "#ffeb3b")(i); };
@@ -155,7 +147,8 @@ function drawNeck(data) {
     let yrTo   = parseInt(formatYear(y1[1]));
 
     updateHisto(yrFrom, yrTo);
-    //updateSliderValue(yrFrom);
+    createSlider(yrFrom, yrTo);
+    updateSliderValue(yrFrom);
   }
 
   function showPoints(y0, y1) {
@@ -289,7 +282,7 @@ function drawHisto(data) {
     insert_data(d);
   }
 
-  function insert_data(d) {		// insert data into arrays
+  function insert_data(d) {   // insert data into arrays
     histo.hstArr[d.year-1956] += d.happiest;
     histo.hstTot += d.happiest;
     histo.hpyArr[d.year-1956] += d.happy;
@@ -302,7 +295,7 @@ function drawHisto(data) {
     histo.sstTot += d.saddest;
   }
 
-  let width = 300, tHeight = 250, height = 230;
+  let width = 250, tHeight = 200, height = 180;
 
   let svg = d3.select("#histo")
     .attr("width", width)
@@ -465,8 +458,8 @@ function updateHisto(start, end) {
     sadW     = 0,
     sstBuf   = 0,
     sstW     = 0,
-    width    = 300,
-    height   = 200,
+    width    = 250,
+    height   = 180,
     x        = 1956;
 
   while(x < start) {
@@ -616,6 +609,7 @@ function updateHierarchyEdge(data, year) {
   d3.selectAll(".link")
     .transition()
         .duration(3000)
+        .delay(100)
         .attr("stroke-dashoffset", function() {
             let totalLength = this.getTotalLength();
             return totalLength;
@@ -669,6 +663,7 @@ function drawGraph(data) {
     .style("opacity", function(d) {if (d.category === "unknown") return 0; else return 1;})
     .transition()
                 .duration(5000)
+                .delay(1000)
                 .attr("stroke-dashoffset", 0);
 
 }
@@ -719,9 +714,6 @@ function packageSongs(nodes) {
   return songs;
 }
 
-createSlider(1956, 2015);
-document.getElementById("message").innerHTML = 1956;
-
 // creates the slider using d3, takes in an beginning and ending year
 function createSlider(yearBegin, yearEnd) {
   d3.selectAll("#s1").remove();
@@ -738,6 +730,7 @@ function createSlider(yearBegin, yearEnd) {
     .attr("max", yearEnd)
     .attr("value", "4")
     .attr("step", "1")
+    .attr("on ")
 
   slider
     .append("div")
@@ -748,8 +741,11 @@ function createSlider(yearBegin, yearEnd) {
 // updates the value of the slider and generates graph
 function updateSliderValue(value) {
   document.getElementById("message").innerHTML = value;
-  if (value === 2013) value = 2014;
-  updateHierarchyEdge(bundlesData, value);
+  d3.json("result.json", (error, data) => {
+    if (error) throw error;
+    if (value === 2013) value = 2014;
+      updateHierarchyEdge(data, value);
+  });
 }
 
 function playSong(artist, track, preview) {
