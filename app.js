@@ -529,51 +529,70 @@ function updateHisto(start, end) {
   }
 }
 
+const pathColor = function (i) { return d3.interpolateLab("#00a9f8", "#ffeb3b")(findCat(i)); };
+
+function findCat(category) {
+  if(category === "saddest")
+    return 0.2;
+  else if(category === "sad")
+    return 0.4;
+  else if(category === "neutral")
+    return 0.6;
+  else if(category === "happy")
+    return 0.8;
+  else if(category === "happiest")
+    return 1.0;
+  else
+    return 0;
+}
+
 let diameter = 960,
     radius = diameter / 2,
     innerRadius = radius - 120;
 
-let svg = d3.select("body").append("svg")
+let svg = d3.select("body").append("center").append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
     .append("g")
     .attr("transform", "translate(" + radius + "," + radius + ")");
 
+
 let cluster = d3.cluster()
     .size([360, innerRadius])
 
 let line = d3.radialLine()
-    .curve(d3.curveBundle.beta(0.95))
-    .radius(d => { return d.y; })
-    .angle(d => { return d.x / 180 * Math.PI; });
+    .curve(d3.curveBundle.beta(0))
+    .radius(function(d) { return d.y; })
+    .angle(function(d) { return d.x / 180 * Math.PI; });
 
-let link = svg.append("g").selectAll(".link"),
-    node = svg.append("g").selectAll(".node");
+function updateHierarchyEdge(data, year) {
+      let link = svg.append("g").selectAll(".link"),
+      node = svg.append("g").selectAll(".node");
 
-function update(file) {
-    d3.json(file, (error, classes) => {
-      if (error) throw error;
+      data = data[0].years[year]
       // remove previous data
-      
-      d3.selectAll(".node").remove();
-      d3.selectAll(".link").remove();
-      
+      d3.selectAll(".node")
+          .remove();
+      d3.selectAll(".link")
+          .remove();  
       // package data into hierarchy format
       
-      let hierarchy = d3.hierarchy(packageHierarchy(classes))
+      let hierarchy = d3.hierarchy(packageHierarchy(data))
       let nodes = cluster(hierarchy).descendants()
-
       let links = packageSongs(nodes);
 
       // Generate nodes with song names around radius
-      let node_selection = node.data(nodes.filter(n => { return !n.data.children; }));
+      let node_selection = node.data(nodes.filter(function(n) { return !n.data.children; }));
       node_selection    
           .enter().append("text")
           .attr("class", "node")
           .attr("dy", ".34em")
-          .attr("transform", d => { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
-          .style("text-anchor", d => { return d.x < 180 ? "start" : "end"; })
-          .text(d => { return d.data.key; })
+          .on("click", function(d){console.log(d.data.name, d.data.preview) })
+          .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+          .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+          .style("font-size", 12)
+          .text(function(d) { return d.data.name; })
+
 
       // Create path connect the target and source nodes and color the path based on valence
       let link_selection = link.data(links);
@@ -590,19 +609,16 @@ function update(file) {
                 let totalLength = this.getTotalLength();
                 return totalLength;
             })
-            .style("stroke", d => d3.interpolateLab("#00a9f8 ", "#ffeb3b ")(d.valence))
-            .style("stroke-width", 2)
+            .style("stroke", d => pathColor(d.category))
+            .style("stroke-width", 0.5)
             .transition()
                 .duration(2000)
                 .attr("stroke-dashoffset", 0);
-      
-    });
   
 
 }
 
-update("xing-test/test2.json");
-update("xing-test/readme-flare-imports.json");
+
   
 // Lazily construct the package hierarchy from class names.
 function packageHierarchy(classes) {
@@ -621,7 +637,7 @@ function packageHierarchy(classes) {
     return node;
   }
 
-  classes.forEach(d => {
+  classes.forEach(function(d) {
     find(d.name, d);
   });
 
@@ -631,22 +647,60 @@ function packageHierarchy(classes) {
 // Return a list of songs for the given array of nodes.
 function packageSongs(nodes) {
   let map = {},
-      imports = [],
-      valence = {};
+      songs = [],
+      category = {};
 
   // Compute a map from name to node.
-  nodes.forEach(d => {
+  nodes.forEach(function(d) {
     map[d.data.name] = d;
-    valence[d.data.name] = d.data.valence;
+    category[d.data.name] = d.data.category;
   });
 
   // For each song, construct a link from the source to target node.
-  nodes.forEach(d => {
-    if (d.data.songs) d.data.songs.forEach(i => {
-      imports.push({source: map[d.data.name], target: map[i], valence: valence[d.data.name]});
+  nodes.forEach(function(d) {
+    if (d.data.songs) d.data.songs.forEach(function(i) {
+      songs.push({source: map[d.data.name], target: map[i], category: category[d.data.name]});
     });
   });
 
-  return imports;
+  return songs;
 }
+
+// creates the slider using d3, takes in an beginning and ending year
+function createSlider(yearBegin, yearEnd) {
+    d3.selectAll("#s1").remove();
+    d3.selectAll("#message").remove();
+    let slider = d3.select("body").append("center").append("p").style("width", "800px");
+    
+    slider
+      .append("input")
+        .attr("class","mdl-slider mdl-js-slider")
+        .attr("onchange", "updateSliderValue(this.value)")
+        .attr("type", "range")
+        .attr("id", "s1")
+        .attr("min", yearBegin)
+        .attr("max", yearEnd)
+        .attr("value", "4")
+        .attr("step", "1")
+        .attr("on ")
+
+    slider
+      .append("div")
+        .attr("id","message")
+        .attr("font-type", "Roboto")
+}
+   
+createSlider(1950,2015);
+updateSliderValue(1950);
+  
+// updates the value of the slider and generates graph
+function updateSliderValue(value) {
+  document.getElementById("message").innerHTML = value;
+  d3.json("result.json", (error, data) => {
+      if (error) throw error;
+      if (value === 2013) value = 2014;
+      updateHierarchyEdge(data, value);
+});
+}
+
 

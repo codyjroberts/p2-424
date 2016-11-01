@@ -24,10 +24,12 @@
   font-weight: 700;
 }
 
-
 </style>
 <body>
 <script src="//d3js.org/d3.v4.min.js"></script>
+<script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <script>
 
 const pathColor = function (i) { return d3.interpolateLab("#00a9f8", "#ffeb3b")(findCat(i)); };
@@ -51,7 +53,7 @@ var diameter = 960,
     radius = diameter / 2,
     innerRadius = radius - 120;
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("body").append("center").append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
     .append("g")
@@ -62,21 +64,15 @@ var cluster = d3.cluster()
     .size([360, innerRadius])
 
 var line = d3.radialLine()
-    .curve(d3.curveBundle.beta(0.95))
+    .curve(d3.curveBundle.beta(0))
     .radius(function(d) { return d.y; })
     .angle(function(d) { return d.x / 180 * Math.PI; });
-
-
-d3.json("readme-flare-imports.json", (error, data) => {
-      if (error) throw error;
-      updateHierarchyEdge(data, 2016);
-});
 
 function updateHierarchyEdge(data, year) {
       var link = svg.append("g").selectAll(".link"),
       node = svg.append("g").selectAll(".node");
 
-      data = data[0].year[year]
+      data = data[0].years[year]
       // remove previous data
       d3.selectAll(".node")
           .remove();
@@ -94,9 +90,12 @@ function updateHierarchyEdge(data, year) {
           .enter().append("text")
           .attr("class", "node")
           .attr("dy", ".34em")
+          .on("click", function(d){console.log(d.data.name, d.data.preview) })
           .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
           .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-          .text(function(d) { return d.data.key; })
+          .style("font-size", 12)
+          .text(function(d) { return d.data.name; })
+
 
       // Create path connect the target and source nodes and color the path based on valence
       var link_selection = link.data(links);
@@ -114,7 +113,7 @@ function updateHierarchyEdge(data, year) {
                 return totalLength;
             })
             .style("stroke", d => pathColor(d.category))
-            .style("stroke-width", 2)
+            .style("stroke-width", 0.5)
             .transition()
                 .duration(2000)
                 .attr("stroke-dashoffset", 0);
@@ -170,4 +169,41 @@ function packageSongs(nodes) {
   return songs;
 }
 
+// creates the slider using d3
+function createSlider(yearBegin, yearEnd) {
+    d3.selectAll("input").remove();
+    var slider = d3.select("body").append("center").append("p").style("width", "800px");
+    
+    slider
+      .append("input")
+        .attr("class","mdl-slider mdl-js-slider")
+        .attr("onchange", "updateSliderValue(this.value)")
+        .attr("type", "range")
+        .attr("id", "s1")
+        .attr("min", yearBegin)
+        .attr("max", yearEnd)
+        .attr("value", "4")
+        .attr("step", "1")
+        .attr("on ")
+
+    slider
+      .append("div")
+        .attr("id","message")
+        .attr("font-type", "Roboto")
+      
+  
+}
+   
+createSlider(1950,2015);
+updateSliderValue(1950);
+  
+// updates the value of the slider and generates graph
+function updateSliderValue(value) {
+  document.getElementById("message").innerHTML = value;
+  d3.json("result.json", (error, data) => {
+      if (error) throw error;
+      if (value === 2013) value = 2014;
+      updateHierarchyEdge(data, value);
+});
+}
 </script>
