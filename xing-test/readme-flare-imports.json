@@ -1,7 +1,18 @@
 [
-{"name":"AgglomerativeCluster","songs":["CommunityStructure"], "valence":0.1},
-{"name":"CommunityStructure","songs":["AgglomerativeCluster"], "valence":0.1},
-{"name":"test","songs":["The bestest song", "The bomb song"], "valence":1},
-{"name":"The bestest song", "songs":["test", "The bomb song"], "valence":1},
-{"name":"The bomb song", "songs":["test", "The bestest song"], "valence":1}
+{"year": {
+    "2016":
+    [
+        {"name":"AgglomerativeCluster","songs":["CommunityStructure"], "category":"happiest", "info":[]},
+        {"name":"CommunityStructure","songs":["AgglomerativeCluster"], "category":"happiest", "info":[]},
+        {"name":"test","songs":["The bestest's song", "The best song"], "category":"saddest", "info":[]},
+        {"name":"The bestest's song", "songs":["The best song", "test"], "category":"saddest", "info":[]},
+        {"name":"The best song", "songs":["test", "The bestest's song"], "category":"saddest", "info":[]}
+    ],
+    "2015":
+    [
+        {"name":"AgglomerativeCluster","songs":["CommunityStructure"], "category":"happiest", "info":[]},
+        {"name":"CommunityStructure","songs":["AgglomerativeCluster"], "category":"happiest", "info":[]},
+        {"name":"test","songs":[], "category":"saddest", "info":[]}
+    ] 
+}}
 ]

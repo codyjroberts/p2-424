@@ -1,4 +1,4 @@
 [
-{"name":"AgglomerativeCluster","songs":["CommunityStructure"], "valence":0.1},
-{"name":"CommunityStructure","songs":["AgglomerativeCluster"], "valence":0.1}
+{"name":"AgglomerativeCluster","songs":["CommunityStructure"], "valence":0.1, "info":[]},
+{"name":"CommunityStructure","songs":[""], "valence":0.1, "info":[]}
 ]
