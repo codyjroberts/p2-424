@@ -46,3 +46,6 @@ the addition of a music player, one can compare songs of different categories.
 After completing the stacked area chart, I (Cody) realized that a streamgraph might have been a bit more
 interesting.  We could have used another metric, like unemployment, for the width of the chart to provide
 a perhaps more meaningful visualization.
+
+# License
+This project is released under GNU GPLv3
