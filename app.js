@@ -145,7 +145,7 @@ function drawNeck(data) {
 
     let yrFrom = parseInt(formatYear(y1[0]));
     let yrTo   = parseInt(formatYear(y1[1]));
-    
+
     updateHisto(yrFrom, yrTo);
   }
 
@@ -433,14 +433,14 @@ function drawHisto(data) {
     .attr("class", "histoText")
     .attr("x",3)
     .attr("y",height*.92);
-  
+
   let title = svg.append("text")
-   .attr("id", "title")
-   .attr("class", "histoText")
-   .attr("font-size", "0.8em")
-   .attr("x",3)
-   .attr("y",height + 10)
-   .text("Valence Percentage of Total for Selected Years")
+    .attr("id", "title")
+    .attr("class", "histoText")
+    .attr("font-size", "0.8em")
+    .attr("x",3)
+    .attr("y",height + 10)
+    .text("Valence Percentage of Total for Selected Years")
 
   updateHisto(1956, 2015);
 }
@@ -580,88 +580,84 @@ function findCat(category) {
 }
 
 let diameter = 960,
-    radius = diameter / 2,
-    innerRadius = radius - 120;
+  radius = diameter / 2,
+  innerRadius = radius - 150;
 
-let svg = d3.select("body").append("center").append("svg")
-    .attr("width", diameter)
-    .attr("height", diameter)
-    .append("g")
-    .attr("transform", "translate(" + radius + "," + radius + ")");
+let svg = d3.select("#viz-middle").append("svg")
+  .attr("width", diameter)
+  .attr("height", diameter)
+  .append("g")
+  .attr("transform", "translate(" + radius + "," + radius + ")");
 
 
 let cluster = d3.cluster()
-    .size([360, innerRadius])
+  .size([360, innerRadius])
 
 let line = d3.radialLine()
-    .curve(d3.curveBundle.beta(0))
-    .radius(function(d) { return d.y; })
-    .angle(function(d) { return d.x / 180 * Math.PI; });
+  .curve(d3.curveBundle.beta(0))
+  .radius(function(d) { return d.y; })
+  .angle(function(d) { return d.x / 180 * Math.PI; });
 
 function updateHierarchyEdge(data, year) {
-      data = data[0].years[year]
-      
-      // remove previous data
-      d3.selectAll(".node")
-          .remove();
-      d3.selectAll(".link")
-          .transition()
-                .duration(3000)
-                .delay(2000)
-                .attr("stroke-dashoffset", function() {
-                let totalLength = this.getTotalLength();
-                return totalLength;
-            })
-          .on("end", drawGraph(data))
-          .remove();  
+  data = data[0].years[year]
+
+  // remove previous data
+  d3.selectAll(".node")
+    .remove();
+  d3.selectAll(".link")
+    .transition()
+    .duration(100)
+    .attr("stroke-dashoffset", function() {
+      let totalLength = this.getTotalLength();
+      return totalLength;
+    })
+    .on("end", drawGraph(data))
+    .remove();  
 }
 
 function drawGraph(data) {
   // package data into hierarchy format
-      let link = svg.append("g").selectAll(".link"),
-      node = svg.append("g").selectAll(".node");
-      let hierarchy = d3.hierarchy(packageHierarchy(data))
-      let nodes = cluster(hierarchy).descendants()
-      let links = packageSongs(nodes);
+  let link = svg.append("g").selectAll(".link"),
+    node = svg.append("g").selectAll(".node");
+  let hierarchy = d3.hierarchy(packageHierarchy(data))
+  let nodes = cluster(hierarchy).descendants()
+  let links = packageSongs(nodes);
 
-      // Generate nodes with song names around radius
-      let node_selection = node.data(nodes.filter(function(n) { return !n.data.children; }));
-      node_selection    
-          .enter().append("text")
-          .attr("class", "node")
-          .attr("dy", ".34em")
-          .on("click", function(d){console.log(d.data.name, d.data.preview) })
-          .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
-          .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-          .style("font-size", 12)
-          .text(function(d) { return d.data.name; })
+  // Generate nodes with song names around radius
+  let node_selection = node.data(nodes.filter(function(n) { return !n.data.children; }));
+  node_selection    
+    .enter().append("text")
+    .attr("class", "node")
+    .attr("dy", ".34em")
+    .on("click", function(d){playSong(d.data.artist, d.data.name, d.data.preview)})
+    .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+    .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+    .style("font-size", 12)
+    .text(function(d) { return d.data.name; })
 
 
-      // Create path connect the target and source nodes and color the path based on valence
-      let link_selection = link.data(links);
-      link_selection
-            .enter().append('path')
-            .attr('class', 'link')
-            .merge(link)
-            .attr('d', d => line(d.source.path(d.target)))
-            .attr("stroke-dasharray", function() {
-                let totalLength = this.getTotalLength();
-                return totalLength + " " + totalLength;
-            })
-            .attr("stroke-dashoffset", function() {
-                let totalLength = this.getTotalLength();
-                return totalLength;
-            })
-            .style("stroke", d => pathColor(d.category))
-            .style("stroke-width", 0.5)
-            .transition()
-                .duration(5000)
-                .delay(1000)
-                .attr("stroke-dashoffset", 0);
-  
+  // Create path connect the target and source nodes and color the path based on valence
+  let link_selection = link.data(links);
+  link_selection
+    .enter().append('path')
+    .attr('class', 'link')
+    .merge(link)
+    .attr('d', d => line(d.source.path(d.target)))
+    .attr("stroke-dasharray", function() {
+      let totalLength = this.getTotalLength();
+      return totalLength + " " + totalLength;
+    })
+    .attr("stroke-dashoffset", function() {
+      let totalLength = this.getTotalLength();
+      return totalLength;
+    })
+    .style("stroke", d => pathColor(d.category))
+    .style("stroke-width", 0.5)
+    .attr("stroke-dashoffset", 0);
+
 
 }
-  
+
 // Lazily construct the package hierarchy from class names.
 function packageHierarchy(classes) {
   let map = {};
@@ -689,8 +685,8 @@ function packageHierarchy(classes) {
 // Return a list of songs for the given array of nodes.
 function packageSongs(nodes) {
   let map = {},
-      songs = [],
-      category = {};
+    songs = [],
+    category = {};
 
   // Compute a map from name to node.
   nodes.forEach(function(d) {
@@ -710,37 +706,43 @@ function packageSongs(nodes) {
 
 // creates the slider using d3, takes in an beginning and ending year
 function createSlider(yearBegin, yearEnd) {
-    d3.selectAll("#s1").remove();
-    d3.selectAll("#message").remove();
-    let slider = d3.select("body").append("center").append("p").style("width", "800px");
-    
-    slider
-      .append("input")
-        .attr("class","mdl-slider mdl-js-slider")
-        .attr("onchange", "updateSliderValue(this.value)")
-        .attr("type", "range")
-        .attr("id", "s1")
-        .attr("min", yearBegin)
-        .attr("max", yearEnd)
-        .attr("value", "4")
-        .attr("step", "1")
-        .attr("on ")
+  d3.selectAll("#s1").remove();
+  d3.selectAll("#message").remove();
+  let slider = d3.select("#viz-middle").append("p")
 
-    slider
-      .append("div")
-        .attr("id","message")
-        .attr("font-type", "Roboto")
+  slider
+    .append("input")
+    .attr("class","mdl-slider mdl-js-slider")
+    .attr("onchange", "updateSliderValue(this.value)")
+    .attr("type", "range")
+    .attr("id", "s1")
+    .attr("min", yearBegin)
+    .attr("max", yearEnd)
+    .attr("value", "4")
+    .attr("step", "1")
+    .attr("on ")
+
+  slider
+    .append("div")
+    .attr("id","message")
+    .attr("font-type", "Roboto")
 }
- 
-createSlider(1950,2014);
-updateSliderValue(1950);
-  
+
+createSlider(1956, 2015);
+updateSliderValue(1956);
+
 // updates the value of the slider and generates graph
 function updateSliderValue(value) {
   document.getElementById("message").innerHTML = value;
   d3.json("result.json", (error, data) => {
-      if (error) throw error;
-      if (value === 2013) value = 2014;
-      updateHierarchyEdge(data, value);
+    if (error) throw error;
+    if (value === 2013) value = 2014;
+    updateHierarchyEdge(data, value);
   });
+}
+
+function playSong(artist, track, preview) {
+  document.getElementById("artist").innerHTML = artist;
+  document.getElementById("track").innerHTML = track;
+  document.getElementById("audio-player").setAttribute("src", preview);
 }
