@@ -590,7 +590,7 @@ function findCat(category) {
 
 let diameter = 960,
   radius = diameter / 2,
-  innerRadius = radius - 150;
+  innerRadius = radius - 200;
 
 let svg = d3.select("#viz-middle").append("svg")
   .attr("width", diameter)
@@ -608,24 +608,24 @@ let line = d3.radialLine()
   .angle(function(d) { return d.x / 180 * Math.PI; });
 
 function updateHierarchyEdge(data, year) {
+  d3.selectAll(".link").remove();
   data = data[0].years[year]
 
   // remove previous data
   d3.selectAll(".node")
     .remove();
   d3.selectAll(".link")
-    .transition()
-        .duration(3000)
-        .attr("stroke-dashoffset", function() {
-            let totalLength = this.getTotalLength();
-            return totalLength;
-          })
-    .attr("stroke-dashoffset", function() {
-      let totalLength = this.getTotalLength();
-      return totalLength;
-    })
+    //.transition()
+    //    .duration(3000)
+    //    .attr("stroke-dashoffset", function() {
+    //        let totalLength = this.getTotalLength();
+    //        return totalLength;
+    //      })
+    //.attr("stroke-dashoffset", function() {
+    //  let totalLength = this.getTotalLength();
+    //  return totalLength;
+    //})
     .on("end", drawGraph(data))
-    .remove();  
 }
 
 function drawGraph(data) {
@@ -646,8 +646,8 @@ function drawGraph(data) {
     .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
     .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
     .style("font-size", 12)
+    //.style("fill", d => { return pathColor(d.data.category); })
     .text(function(d) { return d.data.name; })
-
 
   // Create path connect the target and source nodes and color the path based on valence
   let link_selection = link.data(links);
@@ -656,20 +656,21 @@ function drawGraph(data) {
     .attr('class', 'link')
     .merge(link)
     .attr('d', d => line(d.source.path(d.target)))
-    .attr("stroke-dasharray", function() {
-      let totalLength = this.getTotalLength();
-      return totalLength + " " + totalLength;
-    })
-    .attr("stroke-dashoffset", function() {
-      let totalLength = this.getTotalLength();
-      return totalLength;
-    })
     .style("stroke", d => pathColor(d.category))
     .style("stroke-width", 0.5)
-    .style("opacity", function(d) {if (d.category === "unknown") return 0; else return 1;})
-    .transition()
-                .duration(5000)
-                .attr("stroke-dashoffset", 0);
+    //.attr("stroke-dasharray", function() {
+    //  let totalLength = this.getTotalLength();
+    //  return totalLength + " " + totalLength;
+    //})
+    //.attr("stroke-dashoffset", function() {
+    //  let totalLength = this.getTotalLength();
+    //  return 0;
+    //  //return totalLength;
+    //})
+    //.style("opacity", function(d) {if (d.category === "unknown") return 0; else return 1;})
+    //.transition()
+    //            .duration(5000)
+    //            .attr("stroke-dashoffset", 0);
 
 }
 
