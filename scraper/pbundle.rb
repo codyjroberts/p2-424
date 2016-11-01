@@ -17,7 +17,8 @@ File.open("data.json", "r") do |f|
         track: s["track"],
         preview: s["preview"],
         category: v_ranges.find { |k, v| valence >= v }[0],
-        valence: valence
+        valence: valence,
+        year: k
       } 
     end
   end.flatten
