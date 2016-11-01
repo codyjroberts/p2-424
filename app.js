@@ -10,6 +10,14 @@ d3.json("./valtotals.json", (error, data) => {
   drawHisto(data);
 });
 
+let bundlesData;
+
+d3.json("result.json", (error, data) => {
+  if (error) throw error;
+  bundlesData = data;
+  updateHierarchyEdge(bundlesData, 1956);
+});
+
 const valColor   = function (i) { return d3.interpolateLab("#00a9f8", "#ffeb3b")(i); };
 
 function drawNeck(data) {
@@ -147,8 +155,7 @@ function drawNeck(data) {
     let yrTo   = parseInt(formatYear(y1[1]));
 
     updateHisto(yrFrom, yrTo);
-    createSlider(yrFrom, yrTo);
-    updateSliderValue(yrFrom);
+    //updateSliderValue(yrFrom);
   }
 
   function showPoints(y0, y1) {
@@ -458,7 +465,7 @@ function updateHisto(start, end) {
     sadW     = 0,
     sstBuf   = 0,
     sstW     = 0,
-    width    = 250,
+    width    = 300,
     height   = 200,
     x        = 1956;
 
@@ -609,7 +616,6 @@ function updateHierarchyEdge(data, year) {
   d3.selectAll(".link")
     .transition()
         .duration(3000)
-        .delay(100)
         .attr("stroke-dashoffset", function() {
             let totalLength = this.getTotalLength();
             return totalLength;
@@ -663,7 +669,6 @@ function drawGraph(data) {
     .style("opacity", function(d) {if (d.category === "unknown") return 0; else return 1;})
     .transition()
                 .duration(5000)
-                .delay(1000)
                 .attr("stroke-dashoffset", 0);
 
 }
@@ -714,6 +719,9 @@ function packageSongs(nodes) {
   return songs;
 }
 
+createSlider(1956, 2015);
+document.getElementById("message").innerHTML = 1956;
+
 // creates the slider using d3, takes in an beginning and ending year
 function createSlider(yearBegin, yearEnd) {
   d3.selectAll("#s1").remove();
@@ -730,7 +738,6 @@ function createSlider(yearBegin, yearEnd) {
     .attr("max", yearEnd)
     .attr("value", "4")
     .attr("step", "1")
-    .attr("on ")
 
   slider
     .append("div")
@@ -741,11 +748,8 @@ function createSlider(yearBegin, yearEnd) {
 // updates the value of the slider and generates graph
 function updateSliderValue(value) {
   document.getElementById("message").innerHTML = value;
-  d3.json("result.json", (error, data) => {
-    if (error) throw error;
-    if (value === 2013) value = 2014;
-      updateHierarchyEdge(data, value);
-  });
+  if (value === 2013) value = 2014;
+  updateHierarchyEdge(bundlesData, value);
 }
 
 function playSong(artist, track, preview) {
