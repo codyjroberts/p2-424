@@ -1,4 +1,4 @@
-åd3.json('./val.json', (error, data) => {
+d3.json('./val.json', (error, data) => {
   if (error) throw error;
 
   drawNeck(data);
