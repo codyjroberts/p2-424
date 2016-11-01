@@ -11,6 +11,10 @@ No installation necessary! Current version can be found at [hvpm.surge.sh](https
 
 If you insist on running locally you can do so with python's simpleHTTPserver or similar.
 
+# Video
+
+http://cranberrycinnamon.com/singAHappyTune/
+
 # Citations
 Lynch, S., Haber, J., & Carpendale, S. (2012). Colourvis: Exploring colour in digital images. Computers & Graphics, 36(6), 696-707.
 
