@@ -295,7 +295,7 @@ function drawHisto(data) {
     histo.sstTot += d.saddest;
   }
 
-  let width = 250, tHeight = 200, height = 200;
+  let width = 300, tHeight = 250, height = 230;
 
   let svg = d3.select("#histo")
     .attr("width", width)
