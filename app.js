@@ -147,6 +147,8 @@ function drawNeck(data) {
     let yrTo   = parseInt(formatYear(y1[1]));
 
     updateHisto(yrFrom, yrTo);
+    createSlider(yrFrom, yrTo);
+    updateSliderValue(yrFrom);
   }
 
   function showPoints(y0, y1) {
@@ -606,7 +608,12 @@ function updateHierarchyEdge(data, year) {
     .remove();
   d3.selectAll(".link")
     .transition()
-    .duration(100)
+        .duration(3000)
+        .delay(100)
+        .attr("stroke-dashoffset", function() {
+            let totalLength = this.getTotalLength();
+            return totalLength;
+          })
     .attr("stroke-dashoffset", function() {
       let totalLength = this.getTotalLength();
       return totalLength;
@@ -653,8 +660,11 @@ function drawGraph(data) {
     })
     .style("stroke", d => pathColor(d.category))
     .style("stroke-width", 0.5)
-    .attr("stroke-dashoffset", 0);
-
+    .style("opacity", function(d) {if (d.category === "unknown") return 0; else return 1;})
+    .transition()
+                .duration(5000)
+                .delay(1000)
+                .attr("stroke-dashoffset", 0);
 
 }
 
@@ -728,16 +738,13 @@ function createSlider(yearBegin, yearEnd) {
     .attr("font-type", "Roboto")
 }
 
-createSlider(1956, 2015);
-updateSliderValue(1956);
-
 // updates the value of the slider and generates graph
 function updateSliderValue(value) {
   document.getElementById("message").innerHTML = value;
   d3.json("result.json", (error, data) => {
     if (error) throw error;
     if (value === 2013) value = 2014;
-    updateHierarchyEdge(data, value);
+      updateHierarchyEdge(data, value);
   });
 }
 
