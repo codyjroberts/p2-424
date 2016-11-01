@@ -566,17 +566,27 @@ let line = d3.radialLine()
     .angle(function(d) { return d.x / 180 * Math.PI; });
 
 function updateHierarchyEdge(data, year) {
-      let link = svg.append("g").selectAll(".link"),
-      node = svg.append("g").selectAll(".node");
-
       data = data[0].years[year]
+      
       // remove previous data
       d3.selectAll(".node")
           .remove();
       d3.selectAll(".link")
+          .transition()
+                .duration(3000)
+                .delay(2000)
+                .attr("stroke-dashoffset", function() {
+                let totalLength = this.getTotalLength();
+                return totalLength;
+            })
+          .on("end", drawGraph(data))
           .remove();  
-      // package data into hierarchy format
-      
+}
+
+function drawGraph(data) {
+  // package data into hierarchy format
+      let link = svg.append("g").selectAll(".link"),
+      node = svg.append("g").selectAll(".node");
       let hierarchy = d3.hierarchy(packageHierarchy(data))
       let nodes = cluster(hierarchy).descendants()
       let links = packageSongs(nodes);
@@ -612,10 +622,9 @@ function updateHierarchyEdge(data, year) {
             .style("stroke", d => pathColor(d.category))
             .style("stroke-width", 0.5)
             .transition()
-                .duration(2000)
+                .duration(5000)
+                .delay(500)
                 .attr("stroke-dashoffset", 0);
-  
-
 }
 
 
