@@ -7,7 +7,7 @@ Create a branch with your initials and a title e.g:
 When you're done making changes open a PR to master
 
 # Website
-No installation necessary! Current version can be found at [https://hvpm.surge.sh]("hvpm.surge.sh").
+No installation necessary! Current version can be found at [hvpm.surge.sh](https://hvpm.surge.sh).
 
 If you insist on running locally you can do so with python's simpleHTTPserver or similar.
 
