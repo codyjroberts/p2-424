@@ -47,5 +47,23 @@ After completing the stacked area chart, I (Cody) realized that a streamgraph mi
 interesting.  We could have used another metric, like unemployment, for the width of the chart to provide
 a perhaps more meaningful visualization.
 
+For the bar chart to the left of the page, we thought it would be nice to see the the overall distribution of 
+valences based on the selection made on the stacked area chart. The bar chart resizes and updates the 
+oercentage of songs that are in a given valence group in the selection.
+
+The final graph in the middle is an modified hierarchal edge bundle graph. The graph's beta is set to 0 since
+I(Xing) thought that it would better represent the different valence areas. The slider below the graph is
+set to the years in the stacked area chart selection. Each node of the the graph can be clicked to bring the
+song to the music player so that you can listen to the song.
+
+This visualization offers both a high level overview of the data with the bar chart and the stacked area chart
+and the hierarchy edge bundle graph offer a much more detailed view of valence data along with the songs so that you
+can discover songs based on the their valence and listen to it.
+
+After finishing the hierarchal edge graph. I(Xing) realized we probably could've added a couple more metrics
+(ie. genre to further delineate the songs, connections could be between genres the color of the lines could've represented
+the valences) However, the genres were very messy using the spotify API, and there was no good way to grab the correct
+the genre without going to another source.. 
+
 # License
 This project is released under GNU GPLv3
